@@ -1,5 +1,5 @@
 """
-    2019 Department of Information Engineering and Mathematics, University of Siena, Italy.
+    2019-2020 Department of Information Engineering and Mathematics, University of Siena, Italy.
 
     Authors:  Andrea Costanzo (andreacos82@gmail.com) and Benedetta Tondi
 
@@ -26,22 +26,17 @@ import configuration as cfg
 import math
 from utils import read_dataset, assign_exp_id, plot_average_epoch_loss, max_min_coefficient
 from networks import custom_two_terms_loss_wrapper, custom_softmax_activation, custom_mse_wrapper
-# from densenet import DenseNet
+from densenet import DenseNet
 from batch import next_batch
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras as tfkeras
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
 if __name__ == '__main__':
-
-    # exp_id_model = assign_exp_id(cfg.q_factors, ['-2-terms-loss-ep-86+{}-coef-{}'.format(cfg.n_epochs, cfg.max_no_Q_coefs)], 'model')
-    #
-    # exp_id_results = 'model_many_qf2_90-ep-100+{}-coef-{}'.format(cfg.n_epochs, cfg.max_no_Q_coefs)
-    #     # assign_exp_id(cfg.q_factors, ['-ep-100+{}-coef-{}'.format(cfg.n_epochs, cfg.max_no_Q_coefs)], 'results')
 
     exp_id_model = 'model_QF1_55-98-s1-2-term-loss-from-86+53-ep-{}-coef-{}'.format(cfg.n_epochs, cfg.max_no_Q_coefs)
     exp_id_results = 'results_QF1_55-98-s1-1-term-loss-from-86+53-ep-{}-coef-{}'.format(cfg.n_epochs,cfg.max_no_Q_coefs)
@@ -52,7 +47,6 @@ if __name__ == '__main__':
     if not os.path.exists(os.path.join('models', exp_id_model)):
         os.makedirs(os.path.join('models', exp_id_model))
 
-    # -------------- NEW MODEL FROM SCRATCH IS DONE HERE ----------------------------------------
     # Max value for coefficients
     max_coeffs, _ = max_min_coefficient(quality_range=(50, 100),
                                         n_coeffs=cfg.max_no_Q_coefs,
@@ -60,19 +54,22 @@ if __name__ == '__main__':
 
     bins = np.concatenate(([0], np.cumsum(max_coeffs))).astype(np.int16)
 
-    from tensorflow.keras.models import load_model
-    model = load_model('models/model_QF1_55-98_QF2_80_from_ep86qf2_90_53/model_ep52.h5',
-                       custom_objects=({'custom_softmax': custom_softmax_activation(max_coeffs),
-                                        'custom_two_terms_loss_wrapper': custom_two_terms_loss_wrapper(max_coeffs, cfg.mse_weight),
-                                        'custom_mse': custom_mse_wrapper(max_coeffs)}))
+    # -------------- INCREMENTAL LEARNING FROM EXISTING MODEL IS DONE HERE ----------------------------------------
+    # from tensorflow.keras.models import load_model
+    # model = load_model('models/model_QF1_55-98_QF2_80_from_ep86qf2_90_53/model_ep52.h5',
+    #                    custom_objects=({'custom_softmax': custom_softmax_activation(max_coeffs),
+    #                                     'custom_two_terms_loss_wrapper': custom_two_terms_loss_wrapper(max_coeffs, cfg.mse_weight),
+    #                                     'custom_mse': custom_mse_wrapper(max_coeffs)}))
 
-    # model, _ = DenseNet(input_shape=(cfg.block_size[0], cfg.block_size[1], 1),
-    #                    nb_classes=int(np.sum(max_coeffs)),
-    #                    last_activation=custom_softmax_activation(max_vals=max_coeffs))
+    # -------------- NEW MODEL FROM SCRATCH IS DONE HERE ----------------------------------------
+    model, _ = DenseNet(input_shape=(cfg.block_size[0], cfg.block_size[1], 1),
+                        nb_classes=int(np.sum(max_coeffs)),
+                        last_activation=custom_softmax_activation(max_vals=max_coeffs))
 
     # Display / draw information
     # model.summary()
     # plot_model(model, to_file='models/model.png', show_shapes=True)
+    
     opt = tfkeras.optimizers.Adam(lr=cfg.base_lr)
 
     # Read image paths and labels (i.e. quantisation matrix coefficients) from CSV
@@ -85,7 +82,7 @@ if __name__ == '__main__':
     # from keras.models import load_model
     # model = load_model('model.h5', custom_objects={'loss': custom_categorical(max_iterations)})
 
-    # -------------- CHOOSE THE LOSS FUNCTION  --------------
+    # -------------- SET THE LOSS FUNCTION  --------------
     model.compile(loss=custom_two_terms_loss_wrapper(max_coeffs, cfg.mse_weight),
                   optimizer=opt,
                   run_eagerly=False,

@@ -27,8 +27,8 @@ from utils import plot_average_accuracy, rearrange_zigzag_array, read_dataset_wf
 from networks import custom_two_terms_loss_wrapper, custom_categorical, custom_softmax_activation, custom_mse_wrapper
 from tensorflow.keras.models import load_model
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
 if __name__ == '__main__':
@@ -37,13 +37,12 @@ if __name__ == '__main__':
         save_data = True
         version = '3.0' # 1.0
 
-        out_txt = 'DRESDEN_QF2_90_accuracies_new_model.txt' #'results/results_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/QF2_80_RAISE8K_accuracies_new_model.txt'
-        out_acc = 'DRESDEN_QF2_90_Average_overall_accuracy_coeff_new_cnn.npy' # 'results/results_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/QF2_80_RAISE8K_Average_overall_accuracy_coeff_new_cnn.npy'
-        out_mse = 'DRESDEN_QF2_90_Average_overall_mse_coeff_new_cnn.npy' # 'results/results_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/QF2_80_RAISE8K_Average_overall_mse_coeff_new_cnn.npy'
+        out_txt = 'QF2_90_RAISE8K_accuracies.txt'
+        out_acc = 'QF2_90_RAISE8K_Average_overall_accuracy_coeff.npy'
+        out_mse = 'QF2_90_RAISE8K_Average_overall_mse_coeff.npy'
 
         # Test model
-        model_file = 'models/model_QF1_60-98-s1-2-term-loss-from-86+20+4+30+ep-30-coef-15/model_ep29.h5'
-        # model_file = 'models/model_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/model_ep29.h5'
+        model_file = 'models/model_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/model_ep29.h5'
         with open(out_txt, 'a') as fp:
             fp.write('Model: {}\n'.format(model_file))
 
@@ -152,13 +151,3 @@ if __name__ == '__main__':
 
         print(avg_acc_matrix)
         print(avg_mse_matrix)
-
-        #with open(
-        #        'results/results_QF1-60-95-QF2-90-2-terms-loss-ep-86+15-coef-15/PHOTOSHOP_accuracies.txt', 'a') as fp:
-        #    fp.write('-' * 80 + '\n')
-        #    fp.write('ALL QUALITY FACTORS\n')
-        #    fp.write('-' * 80 + '\n')
-        #    fp.write('Test average MSE: {:3.4f}\n'.format(np.mean(arr_mse)))
-        #    fp.write('Test average normalised MSE: {:3.4f}\n'.format(np.mean(arr_nmse)))
-        #    fp.write('Test accuracy: {:3.4f}\n'.format(np.mean(arr_accuracy)))
-        #    fp.write('-'*80 + '\n')

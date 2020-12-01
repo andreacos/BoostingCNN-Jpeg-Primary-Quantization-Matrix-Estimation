@@ -1,5 +1,5 @@
 """
-    2019 Department of Information Engineering and Mathematics, University of Siena, Italy.
+    2019-2020 Department of Information Engineering and Mathematics, University of Siena, Italy.
 
     Authors:  Andrea Costanzo (andreacos82@gmail.com) and Benedetta Tondi
 

@@ -26,8 +26,8 @@ from utils import plot_average_accuracy, rearrange_zigzag_array, read_dataset_wf
 from networks import custom_categorical, custom_softmax_activation
 from tensorflow.keras.models import load_model
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
 if __name__ == '__main__':

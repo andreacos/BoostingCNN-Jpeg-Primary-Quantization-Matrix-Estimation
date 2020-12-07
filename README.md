@@ -115,10 +115,10 @@ n_epochs = 40                          # Training epochs
 scaling_factor_data = 255.0            # Input images (values [0, 255]) are scaled to [0, 1]
 snapshot_frequency = 1000              # Frequency (iterations for saving training metrics)
 ```
-In *train.py* is possible to use other networks. We used DenseNet, whose implementation in this Git is 
+In *train_2terms.py* is possible to use other networks. We used DenseNet, whose implementation in this Git is 
 the one by Christopher Masch [available on GitHub](https://github.com/cmasch/densenet/blob/master/densenet.py).      
 
-To test the model you can use *predict.py*. Make sure to adapt the script to point to the right 
+To test the model you can use *predict_2terms.py*. Make sure to adapt the script to point to the right 
 to-be-tested model file:  
 ```
 model_file = '/path/to/the/model/the_model.h5'

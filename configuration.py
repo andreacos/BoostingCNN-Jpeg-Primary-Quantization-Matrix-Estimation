@@ -12,10 +12,10 @@
 
     If you are using this software, please cite:
 
-    Y.Niu, B. Tondi, Y.Zhao, M.Barni:
-    “Primary Quantization Matrix Estimation of Double Compressed JPEG Images via CNN",
-    IEEE Signal Processing Letters, 2019, November
-    Available on ArXiv: arXiv preprint:1908.04259  https://arxiv.org/abs/1908.04259
+    Boosting CNN-based primary quantization matrix estimation of double JPEG images via a classification-like architecture}, 
+    Benedetta Tondi and Andrea Costanzo and Dequ Huang and Bin Li
+    ArXiv preprint: https://arxiv.org/abs/2012.00468
+
 
 """
 

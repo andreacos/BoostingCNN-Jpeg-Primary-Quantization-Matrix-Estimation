@@ -129,6 +129,8 @@ The script computes some metrics including average Mean Square Error (MSE), aver
 accuracy from CNN's estimated coefficients and ground truth for each pair (QF1, QF2). The script also generates
 a CSV file with all the details of the test for each image of the dataset.
 
+Note that *train_1term.py* and *predict_1term.py* are the implementations of the [original technique](https://github.com/andreacos/CnnJpegPrimaryQuantizationEstimation)
+
 #### Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks
 should not affect the outcome of the training, for sake of reproducibility, we include the list on input images

@@ -12,7 +12,9 @@ If not, see <http://www.gnu.org/licenses/>.
 
 If you are using this software, please cite:
 
-...
+    Boosting CNN-based primary quantization matrix estimation of double JPEG images via a classification-like architecture}, 
+    Benedetta Tondi and Andrea Costanzo and Dequ Huang and Bin Li
+    ArXiv preprint: https://arxiv.org/abs/2012.00468
     
 The software estimates the primary quantization matrix of a Double JPEG image (either aligned and not aligned) 
 based on a Convolutional Neural Network. The CNN-based estimator works with a 64x64 input patch size. 

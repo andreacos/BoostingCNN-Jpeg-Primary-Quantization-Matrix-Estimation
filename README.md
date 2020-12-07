@@ -105,7 +105,7 @@ n_blocks_test = [4e4, 4e4, 4e4, 4e4, 4e4, 4e4, 4e4, 4e4, 4e4]
 
 #### Model training and testing
 
-To train a model, run the *train.py* script. Model training is controlled by the parameters listed 
+To train a model with the proposed two-terms loss, run the *train_2terms.py* script. Model training is controlled by the parameters listed 
 in *configuration.py*; default values in the file coincide with those we used in our paper's implementation.
 ```
 base_lr = 1e-5                         # Learning rate
@@ -126,12 +126,6 @@ model_file = '/path/to/the/model/the_model.h5'
 The script computes some metrics including average Mean Square Error (MSE), average Normalised MSE and average 
 accuracy from CNN's estimated coefficients and ground truth for each pair (QF1, QF2). The script also generates
 a CSV file with all the details of the test for each image of the dataset.
-
-#### Demo: estimation of QF1
-The script *Demo.py* implements a simple demonstration of quantization coefficients estimation for a patch
-with (QF1, QF2) = (70, 90) with a our pretrained model in ./resources/pre_trained/.
-
-![Image](./resources/reproducibility/Demo.png)
 
 #### Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks

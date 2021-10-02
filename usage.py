@@ -15,18 +15,15 @@ def preprocess_input(im_file, target_size, scale=255.):
 
 if __name__ == '__main__':
 
-    csv_file = r"E:\Datasets\DeepQuantiFinder\RAISE\Test\test_many_qf1_qf2_90.csv"
-    # csv_file = r"E:\Datasets\DeepQuantiFinder\RAISE\Test\test_many_qf1_qf2_80.csv"
-
-    model_file = 'model_QF1_60-98_QF2_90-2-term-loss.h5'
-    # model_file = 'model_QF1_55-98_QF2_80-2-term-loss.h5'
+    model_file = 'models/model_QF1_60-98_QF2_90-2-term-loss.h5'
+    # model_file = 'models/model_QF1_55-98_QF2_80-2-term-loss.h5'
 
     img_file = 'resources/00000000_redaf7d93t.TIF_85_90.png'
     # img_file = 'resources/00000000_redaf7d93t.TIF_50_80.png'
 
     # Load the table linking each pair of JPEG quality factors to the corresponding Q's coefficients
-    qf_map = np.load('qf1_qf2_map_90.npy', allow_pickle=True)
-    # qf_map = np.load('qf1_qf2_map_80.npy', allow_pickle=True)
+    qf_map = np.load('resources/qf1_qf2_map_90.npy', allow_pickle=True)
+    # qf_map = np.load('resources/qf1_qf2_map_80.npy', allow_pickle=True)
 
     # Max value for coefficients
     max_coeffs, _ = max_min_coefficient(quality_range=(50, 100),

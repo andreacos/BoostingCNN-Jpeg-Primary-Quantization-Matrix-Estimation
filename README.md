@@ -116,6 +116,7 @@ q_factors = [(55, 80), (56, 80), (57, 80), (58, 80), (59, 80),
 n_blocks_train = [1e5]*len(q_factors)
 n_blocks_test = [1e4]*len(q_factors)
 ```
+To create the dataset each input image from the RAISE8K dataset is converted to the YCbCr color space. Then, the luminance channel is split into blocks of size (64, 64). The training label corresponding to each block is the zig-zag order array of the JPEG quantization coefficients for the luma channel of the input RGB image. Therefore, network input size is (batch_size, 64, 64, 1).
 
 #### Model training and testing
 

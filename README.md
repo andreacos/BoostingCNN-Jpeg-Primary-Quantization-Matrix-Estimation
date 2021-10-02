@@ -143,6 +143,41 @@ a CSV file with all the details of the test for each image of the dataset.
 
 Note that *train_1term.py* and *predict_1term.py* are the implementations of the [original technique](https://github.com/andreacos/CnnJpegPrimaryQuantizationEstimation)
 
+#### Usage example
+The script [usage.py](https://github.com/andreacos/BoostingCNN-Jpeg-Primary-Quantization-Matrix-Estimation/blob/master/usage.py) contains an example of how to test the provided pre-trained models on a single image. The code is a minimal version of the testing scripts which loads the (QF_1, QF_2) mapping from a Numpy .npy file (provided in the *resources* directoru rather than as a csv.
+
+```    
+img_file = 'resources/00000000_redaf7d93t.TIF_85_90.png'
+# img_file = 'resources/00000000_redaf7d93t.TIF_50_80.png'
+``` 
+The image name contains the (QF_1, QF_2) pair used to create it. We provide one image for QF_2=90 and one for QF_2=80.
+
+```  
+qf_map = np.load('resources/qf1_qf2_map_90.npy', allow_pickle=True)
+# qf_map = np.load('resources/qf1_qf2_map_80.npy', allow_pickle=True)
+```  
+These are the mapping files for QF_2=90 and QF_2=80.
+The predictions layer has shape (1, 226), that is the total length of the one-hot encoded 15 coefficients that are being estimated by the network. The function *label2coefficient()* used to decode each one-hot encoded predictions based on the maximum value that can be assigned to each JPEG coefficient.
+
+```
+print(prediction)
+print(prediction.shape)
+predicted_label = label2coefficient(prediction.flatten(), max_coefficients=max_coeffs)
+print(predicted_label)
+print(len(predicted_label))
+
+[[2.98665930e-02 5.76886944e-02 6.48024827e-02 1.15710057e-01
+  1.55256122e-01 1.28645435e-01 3.38997573e-01 5.85532859e-02
+  4.75912951e-02 2.72930181e-03 3.40332117e-05 9.91968022e-07
+.......
+  2.75804603e-04 5.43303804e-06 6.97390760e-07 8.56585913e-08
+  8.70631354e-08 1.60671625e-05 1.40037682e-05 1.23338150e-05
+  1.09606153e-05 9.81615358e-06]]
+(1, 226)
+[ 7  5  4  6  4  3  7  6  4  6  8  7  7  8 11]
+15
+```  
+
 #### Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks
 should not affect the outcome of the training, for sake of reproducibility, we include the list on input images

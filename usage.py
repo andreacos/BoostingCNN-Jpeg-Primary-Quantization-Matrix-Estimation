@@ -6,7 +6,8 @@ from utils import max_min_coefficient, label2coefficient
 
 
 def preprocess_input(im_file, target_size, scale=255.):
-    im = cv2.imread(im_file, cv2.IMREAD_GRAYSCALE)
+    im = cv2.imread(im_file)
+    im = cv2.cvtColor(im, cv2.COLOR_BGR2YCrCb)[:,:,0]
     if im.shape != target_size:
         im = cv2.resize(im, target_size)
 
@@ -15,15 +16,18 @@ def preprocess_input(im_file, target_size, scale=255.):
 
 if __name__ == '__main__':
 
-    model_file = 'models/model_QF1_60-98_QF2_90-2-term-loss.h5'
-    # model_file = 'models/model_QF1_55-98_QF2_80-2-term-loss.h5'
+    csv_file = r"E:\Datasets\DeepQuantiFinder\RAISE\Test\test_many_qf1_qf2_90.csv"
+    # csv_file = r"E:\Datasets\DeepQuantiFinder\RAISE\Test\test_many_qf1_qf2_80.csv"
 
-    img_file = 'resources/00000000_redaf7d93t.TIF_85_90.png'
-    # img_file = 'resources/00000000_redaf7d93t.TIF_50_80.png'
+    model_file = 'model_QF1_60-98_QF2_90-2-term-loss.h5'
+    # model_file = 'model_QF1_55-98_QF2_80-2-term-loss.h5'
+
+    img_file = '00000000_redaf7d93t.TIF_85_90.png'
+    # img_file = '00000000_redaf7d93t.TIF_50_80.png'
 
     # Load the table linking each pair of JPEG quality factors to the corresponding Q's coefficients
-    qf_map = np.load('resources/qf1_qf2_map_90.npy', allow_pickle=True)
-    # qf_map = np.load('resources/qf1_qf2_map_80.npy', allow_pickle=True)
+    qf_map = np.load('qf1_qf2_map_90.npy', allow_pickle=True)
+    # qf_map = np.load('qf1_qf2_map_80.npy', allow_pickle=True)
 
     # Max value for coefficients
     max_coeffs, _ = max_min_coefficient(quality_range=(50, 100),
@@ -41,6 +45,7 @@ if __name__ == '__main__':
     prediction = model.predict(np.expand_dims(x, [0, -1]))
 
     print(prediction)
+    print(prediction.shape)
     predicted_label = label2coefficient(prediction.flatten(), max_coefficients=max_coeffs)
     print(predicted_label)
     print(len(predicted_label))

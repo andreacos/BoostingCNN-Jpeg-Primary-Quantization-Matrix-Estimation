@@ -35,11 +35,13 @@ def preprocess_input(im_file, target_size, scale=255.):
         Returns:
             The image
     """
-    im = cv2.imread(im_file, cv2.IMREAD_GRAYSCALE)
+    im = cv2.imread(im_file)
+    im = cv2.cvtColor(im, cv2.COLOR_BGR2YCrCb)[:, :, 0]
     if im.shape != target_size:
         im = cv2.resize(im, target_size)
 
     return im.astype(np.float32) / scale
+
 
 
 def get_label(im_label, max_c_val=None):

@@ -184,9 +184,9 @@ We provide an example of sliding window-based localization in [localiztion.py]()
 
 For both tampered images, we have two distinct tampered areas, where the copy-pasted regions have different first JPEG qualities, that is, QF1,1 = 95 and QF1,2 = 85 for the first example and QF1,1 = 65 and QF1,2 = 95 for the second one. The first JPEG quality for the background of the two examples is 75. The last quality factor for both examples is QF2 = 90. All the JPEG grids are not aligned. 
 
-![Image](./resources/T_04_758595_localization_map_coeff1.png)
-![Image](./resources/T_04_758595_localization_map_coeff6.png)
-![Image](./resources/T_04_758595_localization_map_coeff14.png)
+![Image](./resources/T_04_758595_localization_map_coeff1.png){:height="50%" width="50%"}
+![Image](./resources/T_04_758595_localization_map_coeff6.png){:height="50%" width="50%"}
+![Image](./resources/T_04_758595_localization_map_coeff14.png){:height="50%" width="50%"}
 
 #### Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks

@@ -118,7 +118,7 @@ n_blocks_test = [1e4]*len(q_factors)
 ```
 To create the dataset each input image from the RAISE8K dataset is converted to the YCbCr color space. Then, the luminance channel is split into blocks of size (64, 64). The training label corresponding to each block is the zig-zag order array of the JPEG quantization coefficients for the luma channel of the input RGB image. Therefore, network input size is (batch_size, 64, 64, 1).
 
-#### Model training and testing
+## Model training and testing
 
 To train a model with the proposed two-terms loss, run the *train_2terms.py* script. Model training is controlled by the parameters listed 
 in *configuration.py*; default values in the file coincide with those we used in our paper's implementation.
@@ -144,7 +144,7 @@ a CSV file with all the details of the test for each image of the dataset.
 
 Note that *train_1term.py* and *predict_1term.py* are the implementations of the [original technique](https://github.com/andreacos/CnnJpegPrimaryQuantizationEstimation)
 
-#### Usage example
+## Usage example
 The script [usage.py](https://github.com/andreacos/BoostingCNN-Jpeg-Primary-Quantization-Matrix-Estimation/blob/master/usage.py) contains an example of how to test the provided pre-trained models on a single image. The code is a minimal version of the testing scripts which loads the (QF_1, QF_2) mapping from a Numpy .npy file (provided in the *resources* directoru rather than as a csv.
 
 ```    
@@ -179,7 +179,7 @@ print(len(predicted_label))
 15
 ```
 
-#### Tampering localization
+## Tampering localization
 We provide an example of sliding window-based localization in [localization.py](https://github.com/andreacos/BoostingCNN-Jpeg-Primary-Quantization-Matrix-Estimation/blob/master/localization.py). Use this code and the two images in the *resources* folder to reproduce the results in Fig. 12 of the paper. We divide the input image into overlapping blocks of size 64x64 with stride s = 1; then each block is fed to one of the provided pre-trained model that returns a vector with the first Nc estimated decoded quantization coefficients. 
 
 For both tampered images, we have two distinct tampered areas, where the copy-pasted regions have different first JPEG qualities, that is, QF1,1 = 95 and QF1,2 = 85 for the first example and QF1,1 = 65 and QF1,2 = 95 for the second one. The first JPEG quality for the background of the two examples is 75. The last quality factor for both examples is QF2 = 90. All the JPEG grids are not aligned. 
@@ -194,7 +194,7 @@ For both tampered images, we have two distinct tampered areas, where the copy-pa
 ![Image](./resources/T_15_859565_localization_map_coeff6.png)
 ![Image](./resources/T_15_859565_localization_map_coeff14.png)
 
-#### Reproducibility
+## Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks
 should not affect the outcome of the training, for sake of reproducibility, we include the list on input images
 that we used for training and test in our paper. The lists can be found in ./resources/reproducibility/ and are

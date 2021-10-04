@@ -177,7 +177,16 @@ print(len(predicted_label))
 (1, 226)
 [ 7  5  4  6  4  3  7  6  4  6  8  7  7  8 11]
 15
-```  
+```
+
+#### Tampering localization
+We provide an example of sliding window-based localization in [localiztion.py](). Use this code and the two images in the *resources* folder to reproduce the results in Fig. 12 of the paper. We divide the input image into overlapping blocks of size 64x64 with stride s = 1; then each block is fed to one of the provided pre-trained model that returns a vector with the first Nc estimated decoded quantization coefficients. 
+
+For both tampered images, we have two distinct tampered areas, where the copy-pasted regions have different first JPEG qualities, that is, QF1,1 = 95 and QF1,2 = 85 for the first example and QF1,1 = 65 and QF1,2 = 95 for the second one. The first JPEG quality for the background of the two examples is 75. The last quality factor for both examples is QF2 = 90. All the JPEG grids are not aligned. 
+
+![Image](./resources/vippdiism.png)
+![Image](./resources/vippdiism.png)
+![Image](./resources/vippdiism.png)
 
 #### Reproducibility
 The choice of image patches when datasets are created is random for each image. Even though the choice of blocks

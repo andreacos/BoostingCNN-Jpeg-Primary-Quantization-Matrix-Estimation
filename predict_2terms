@@ -41,7 +41,7 @@ if __name__ == '__main__':
         out_mse = 'QF2_90_RAISE8K_Average_overall_mse_coeff.npy'
 
         # Test model
-        model_file = 'models/model_QF1_55-98-s1-2-term-loss-from-86+53-ep-30-coef-15/model_ep29.h5'
+        model_file = 'models/model_QF1_60-98_QF2_90-2-term-loss.h5'
         with open(out_txt, 'a') as fp:
             fp.write('Model: {}\n'.format(model_file))
 
